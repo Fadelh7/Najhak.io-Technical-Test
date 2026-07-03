@@ -1,0 +1,39 @@
+.dashboard {
+  min-height: 100vh;
+}
+
+.main {
+  padding-bottom: 3rem;
+}
+
+.container {
+  max-width: 1600px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.pageTitle {
+  font-size: 1.75rem;
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.error {
+  background-color: #fee2e2;
+  color: var(--danger-color);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #f87171;
+}
