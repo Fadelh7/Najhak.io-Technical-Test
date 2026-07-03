@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import api from '../../services/api';
 import styles from './RequestTable.module.css';
 
 const RequestTable = ({ requests, setRequests, loading, onRequestUpdated, pagination, onPageChange, showToast }) => {
+  const [selectedSubject, setSelectedSubject] = useState(null);
   const getNextStatus = (currentStatus) => {
     if (currentStatus === 'New') return 'In Progress';
     if (currentStatus === 'In Progress') return 'Done';
@@ -66,7 +68,14 @@ const RequestTable = ({ requests, setRequests, loading, onRequestUpdated, pagina
               <tr key={request._id}>
                 <td>{request.clientName}</td>
                 <td>{request.email}</td>
-                <td>{request.subject}</td>
+                <td className={styles.subjectCell}>
+                  <div 
+                    className={styles.subjectTruncated}
+                    onClick={() => setSelectedSubject(request.subject)}
+                  >
+                    {request.subject}
+                  </div>
+                </td>
                 <td>
                   <span className={`${styles.statusBadge} ${getStatusBadgeClass(request.status)}`}>
                     {request.status}
@@ -107,6 +116,26 @@ const RequestTable = ({ requests, setRequests, loading, onRequestUpdated, pagina
           >
             Next
           </button>
+        </div>
+      )}
+
+      {selectedSubject && (
+        <div className={styles.modalOverlay} onClick={() => setSelectedSubject(null)}>
+          <div className={styles.modalCard} onClick={e => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h3>Full Subject</h3>
+              <button 
+                className="btn" 
+                onClick={() => setSelectedSubject(null)}
+                style={{ background: 'transparent', color: '#64748b', border: 'none', padding: '0.5rem' }}
+              >
+                ✕
+              </button>
+            </div>
+            <div className={styles.modalBody}>
+              {selectedSubject}
+            </div>
+          </div>
         </div>
       )}
     </div>
